@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>Data Entry Interface</title>
+<link rel="stylesheet" href="/static/style.css">
+
+</head>
+<body>
+    <div class="container">
+        <div class="heading">Data Entry Form</div>
+        <form class="form" method="post" action="/">
+          <div class="input-field">
+            <input type="text" id="name" name="name" placeholder=" " required />
+            <label for="name">Name</label>
+          </div>
+          <div class="input-field">
+            <input type="email" id="email" name="email" placeholder=" " required />
+            <label for="email">Email</label>
+          </div>
+          <div class="input-field">
+            <textarea id="message" name="message" rows="3" placeholder=" " required></textarea>
+            <label for="message">Message</label>
+          </div>
+          <button type="submit" class="btn">Submit</button>
+        </form>
+      </div>
+      
+
+    <h2>Database Entries</h2>
+    <table class="data-table">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Action</th>
+        </tr>
+        {% for entry in entries %} 
+        <tr>
+            <td>{{ entry[0] }}</td>
+            <td>{{ entry[1] }}</td>
+            <td>{{ entry[2] }}</td>
+            <td class="message-cell">{{ entry[3] }}</td>
+            <td>
+                <a href="{{ url_for('delete_entry', id=entry[0]) }}" class="delete-btn" onclick="return confirm('Are you sure you want to delete this entry?')">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
