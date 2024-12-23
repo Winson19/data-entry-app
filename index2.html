@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Entry Interface</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="heading">Data Entry Form</div>
+    <form id="dataForm">
+      <div class="input-field">
+        <input type="text" id="name" name="name" placeholder=" " required />
+        <label for="name">Name</label>
+      </div>
+      <div class="input-field">
+        <input type="email" id="email" name="email" placeholder=" " required />
+        <label for="email">Email</label>
+      </div>
+      <div class="input-field">
+        <textarea id="message" name="message" rows="3" placeholder=" " required></textarea>
+        <label for="message">Message</label>
+      </div>
+      <button type="submit" class="btn">Submit</button>
+    </form>
+  </div>
+
+  <h2>Database Entries</h2>
+  <table class="data-table" id="entriesTable">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Message</th>
+      <th>Action</th>
+    </tr>
+  </table>
+
+  <script>
+    const backendIP = "http://192.168.1.5:5000";  // Backend API IP and Port
+
+    // Function to fetch and display entries
+    function fetchEntries() {
+      fetch(`${backendIP}/api/entries`)
+        .then(response => response.json())
+        .then(data => {
+          const table = document.getElementById('entriesTable');
+          table.innerHTML = `
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Message</th>
+              <th>Action</th>
+            </tr>
+          `;
+          data.forEach(entry => {
+            const row = table.insertRow();
+            row.innerHTML = `
+              <td>${entry[0]}</td>
+              <td>${entry[1]}</td>
+              <td>${entry[2]}</td>
+              <td>${entry[3]}</td>
+              <td><button onclick="deleteEntry(${entry[0]})">Delete</button></td>
+            `;
+          });
+        });
+    }
+
+    // Function to submit form
+    document.getElementById("dataForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        message: document.getElementById('message').value
+      };
+
+      fetch(`${backendIP}/api/submit`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        fetchEntries();  // Refresh the entries table
+        document.getElementById("dataForm").reset();  // Clear form after submission
+      });
+    });
+
+    // Function to delete entry
+    function deleteEntry(id) {
+      fetch(`${backendIP}/api/delete/${id}`, { method: 'DELETE' })
+        .then(response => response.json())
+        .then(data => fetchEntries());  // Refresh entries after deletion
+    }
+
+    // Initial fetch of entries when the page loads
+    fetchEntries();
+  </script>
+</body>
+</html>
