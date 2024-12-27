@@ -1,0 +1,143 @@
+/* Smaller form size */
+.container {
+  border: solid 1px #8d8d8d;
+  padding: 15px;
+  width: 350px; /* Smaller width */
+  border-radius: 15px;
+  background-color: #fff;
+  margin: 0 auto;
+}
+
+.container .heading {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  font-weight: bolder;
+  color: #0034de;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.input-field {
+  position: relative;
+  width: 100%;
+}
+
+.input-field input,
+.input-field textarea {
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: solid 1px #8d8d8d;
+  width: 90%;
+  outline: none;
+}
+
+.input-field input::placeholder,
+.input-field textarea::placeholder {
+  opacity: 0; /* Hide placeholder when typing */
+}
+
+.input-field input:focus,
+.input-field input:valid,
+.input-field textarea:focus,
+.input-field textarea:valid {
+  outline: none;
+  border: solid 1px #0034de;
+}
+
+.input-field label {
+  position: absolute;
+  left: 15px;
+  margin-top: 15px;
+  top: 70%;
+  transform: translateY(-50%);
+  color: #8d8d8d;
+  background-color: transparent;
+  transition: 0.3s;
+  pointer-events: none;
+}
+
+/* Floating label effect */
+.input-field input:focus ~ label,
+.input-field input:not(:placeholder-shown) ~ label,
+.input-field textarea:focus ~ label,
+.input-field textarea:not(:placeholder-shown) ~ label {
+  top: 10px;
+  left: 10px;
+  font-size: 0.85rem;
+  background: #fff;
+  padding: 0 5px;
+  color: #0034de;
+  font-weight: bold;
+}
+
+.form .btn {
+  padding: 10px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  border-radius: 10px;
+  border: solid 1px #1034aa;
+  background: linear-gradient(135deg, #0034de, #006eff);
+  color: #fff;
+  transition: all 0.2s ease;
+}
+
+.form .btn:active {
+  transform: scale(0.98);
+}
+
+
+/* Table Styling */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.data-table th,
+.data-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+  background-color: #04AA6D;
+  color: white;
+}
+
+/* Ensure message wraps if it's too long */
+.message-cell {
+  word-wrap: break-word;
+  max-width: 300px; /* Adjust this width as needed */
+  white-space: pre-wrap; /* Preserve line breaks */
+}
+
+/* Action Button Styles */
+.delete-btn {
+  padding: 5px 10px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+.delete-btn {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
